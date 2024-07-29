@@ -1,0 +1,62 @@
+#include <DHT.h>
+#include <DHT_U.h>
+#include <Wire.h>
+#include "rgb_lcd.h"
+
+
+#define DHTPIN 4      // Pin connected to the DHT sensor
+#define DHTTYPE DHT11 // Define the type of sensor used
+
+DHT dht(DHTPIN, DHTTYPE); // Create an instance of the DHT class
+rgb_lcd lcd;
+
+const int colorR = 255;
+const int colorG = 0;
+const int colorB = 0;
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin(); // Initialize the sensor
+   // set up the LCD's number of columns and rows:
+    lcd.begin(16, 2);
+
+    lcd.setRGB(colorR, colorG, colorB);
+}
+
+void loop() {
+  delay(500); // Wait a few seconds between measurements
+
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float humidity = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float temperature = dht.readTemperature();
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Print the results
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.print(" *C or ");
+  Serial.print(temperature * 9/5 + 32);
+  Serial.println(" *F");
+
+  lcd.setCursor(0,0);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print("%\t");
+  lcd.setCursor(0,1);
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print("C or ");
+  lcd.print(temperature * 9/5 + 32);
+  lcd.println("F");
+}
+
