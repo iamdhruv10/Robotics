@@ -37,7 +37,7 @@ void right_90(){
   digitalWrite(6, LOW);
   digitalWrite(11, LOW);
   digitalWrite(10, HIGH);
-  delay(230);
+  delay(235);
 }
 
 void left_90(){
