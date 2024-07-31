@@ -32,23 +32,21 @@ void brake(){
   digitalWrite(10, HIGH);
 }
 
-void right_90(){
+void right(){
   digitalWrite(5, HIGH);
   digitalWrite(6, LOW);
   digitalWrite(11, LOW);
   digitalWrite(10, HIGH);
-  delay(235);
 }
 
-void left_90(){
+void left(){
   digitalWrite(11, HIGH);
   digitalWrite(10, LOW);
   digitalWrite(6, HIGH);
   digitalWrite(5, LOW);
-  delay(235);
 }
 
 void turn_180() {
-  right_90();
-  right_90();
+  right();
+  delay(470);
 }
